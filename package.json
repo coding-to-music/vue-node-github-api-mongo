@@ -1,5 +1,5 @@
 {
-  "name": "vuelibs",
+  "name": "vue-node-github-api-mongo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
