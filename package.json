@@ -6,7 +6,8 @@
     "run-front": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "run-back": "nodemon --exec babel-node --presets env,stage-2 server/index.js"
+    "run-back": "nodemon --exec babel-node --presets env,stage-2 server/index.js",
+    "deploy": "git add . && git commit -m Build && git push"
   },
   "dependencies": {
     "@octokit/rest": "^16.1.0",
