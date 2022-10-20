@@ -10,7 +10,7 @@ forever stop "org.vuelibs"
 ENV=prod \
 PORT=3001 \
 LOGDNA_KEY=xxxxxxxxxx \
-MONGODB_URL=mongodb://xxxxxxxxxx \
+MONGO_URI=mongodb://xxxxxxxxxx \
     forever start \
         --killSignal=SIGKILL\
         --uid "org.vuelibs"\
