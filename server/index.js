@@ -5,6 +5,7 @@ import path from "path";
 import Mongoose from "mongoose";
 import sanitize from "mongo-sanitize";
 import Component from "./models/component";
+require("dotenv").config({ path: __dirname + "/.env" });
 
 const PORT = process.env.PORT || 3000;
 

@@ -1,9 +1,17 @@
-import Mongoose from "mongoose";
-import Component from "./models/component";
-import axios from "axios";
-import { markdown } from "markdown";
-import Octokit from "@octokit/rest";
-import Logger from "logdna";
+const { Component } = require("./models/component");
+const { axios } = require("axios");
+const { markdown } = require("markdown");
+// const { Logger } = require("logdna");
+const { Octokit } = require("@octokit/rest");
+const { mongoose } = require("mongoose");
+require("dotenv").config({ path: __dirname + "/.env" });
+
+// import Mongoose from "mongoose";
+// import Component from "./models/component";
+// import axios from "axios";
+// import { markdown } from "markdown";
+// import Octokit from "@octokit/rest";
+// import Logger from "logdna";
 
 const DELAY = 2000;
 
@@ -12,11 +20,11 @@ const AV_URL =
 
 let logger = console;
 
-if (process.env.ENV === "prod" && process.env.LOGDNA_KEY) {
-  logger = Logger.setupDefaultLogger(process.env.LOGDNA_KEY, {
-    app: "org.vuelib.parser",
-  });
-}
+// if (process.env.ENV === "prod" && process.env.LOGDNA_KEY) {
+//   logger = Logger.setupDefaultLogger(process.env.LOGDNA_KEY, {
+//     app: "org.vuelib.parser",
+//   });
+// }
 
 if (!process.env.OCTOKIT_TOKEN) {
   logger.log("OCTOKIT_TOKEN is not defined.");
@@ -102,11 +110,17 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// const octokit = new Octokit({
+//   baseUrl: "https://api.github.com",
+//   auth: process.env.OCTOKIT_TOKEN,
+// });
+
 let octokit;
 async function connectGithub() {
   console.log("Connecting to GitHub with token " + process.env.OCTOKIT_TOKEN);
-  octokit = new Octokit({
-    auth: "token " + process.env.OCTOKIT_TOKEN,
+  const octokit = new Octokit({
+    auth: process.env.OCTOKIT_TOKEN,
+    // auth: "token " + process.env.OCTOKIT_TOKEN,
   });
   await sleep(DELAY);
   const { data } = await octokit.rateLimit.get();

@@ -16,6 +16,7 @@
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "debounce": "^1.2.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "http": "0.0.0",
     "logdna": "^3.5.3",
@@ -35,13 +36,13 @@
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^8.25.0",
-    "eslint-plugin-vue": "^9.6.0",
-    "vue-template-compiler": "^2.7.13",
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
-    "nodemon": "^2.0.20"
+    "eslint": "^8.25.0",
+    "eslint-plugin-vue": "^9.6.0",
+    "nodemon": "^2.0.20",
+    "vue-template-compiler": "^2.7.13"
   }
 }
