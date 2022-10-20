@@ -21,7 +21,7 @@ Mongoose.connect(
 const db = Mongoose.connection;
 
 db.on("error", () => {
-  console.error("Could not connect to mongo");
+  console.error("Could not connect to mongo", process.env.MONGO_URI);
 });
 
 db.on("open", () => {

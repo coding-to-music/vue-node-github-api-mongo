@@ -1,33 +1,41 @@
-const { Component } = require("./models/component");
-const { axios } = require("axios");
-const { markdown } = require("markdown");
-// const { Logger } = require("logdna");
-const { Octokit } = require("@octokit/rest");
-const { mongoose } = require("mongoose");
+// const { Component } = require("./models/component");
+// const { axios } = require("axios");
+// const { markdown } = require("markdown");
+// // const { console } = require("logdna");
+// const { Octokit } = require("@octokit/rest");
+// const { mongoose } = require("mongoose");
 require("dotenv").config({ path: __dirname + "/.env" });
 
-// import Mongoose from "mongoose";
-// import Component from "./models/component";
-// import axios from "axios";
-// import { markdown } from "markdown";
-// import Octokit from "@octokit/rest";
-// import Logger from "logdna";
+// require("dotenv").config({ path: __dirname + "/.env" });
+
+// require("dotenv").config({ path: __dirname + "/../.env" });
+
+// const envpath = __dirname + "/../.env";
+// console.log("path %s", __dirname);
+// console.log("envpath %s", envpath);
+
+import Mongoose from "mongoose";
+import Component from "./models/component.js";
+import axios from "axios";
+import { markdown } from "markdown";
+import Octokit from "@octokit/rest";
+// import console from "logdna";
 
 const DELAY = 2000;
 
-const AV_URL =
-  "https://raw.githubusercontent.com/vuejs/awesome-vue/master/README.md";
+// const AV_URL = process.env.GITHUB_README_URL
+//   "https://raw.githubusercontent.com/vuejs/awesome-vue/master/README.md";
 
-let logger = console;
+// let console = console;
 
 // if (process.env.ENV === "prod" && process.env.LOGDNA_KEY) {
-//   logger = Logger.setupDefaultLogger(process.env.LOGDNA_KEY, {
+//   console = console.setupDefaultconsole(process.env.LOGDNA_KEY, {
 //     app: "org.vuelib.parser",
 //   });
 // }
 
 if (!process.env.OCTOKIT_TOKEN) {
-  logger.log("OCTOKIT_TOKEN is not defined.");
+  console.log("OCTOKIT_TOKEN is not defined.");
   process.exit(1);
 }
 
@@ -36,14 +44,21 @@ async function connectMongo() {
     await Mongoose.connect(
       process.env.MONGO_URI || "mongodb://mongo:27017/vue-node-github-api-mongo"
     );
-    logger.log("Connected to mongo");
+    console.log("Connected to mongo");
   } catch (err) {
-    logger.log("Could not connect to mongo");
+    const foo = process.env.MONGO_URI;
+    console.log("parser.js: Could not connect to mongo %s", foo);
+    console.log(
+      "parser.js: Could not connect to mongo %s",
+      process.env.MONGO_URI
+    );
   }
 }
 
 async function parseGithubFile() {
-  const { data } = await axios.get(AV_URL);
+  console.log("parser.js: await axios.get %s", process.env.GITHUB_README_URL);
+
+  const { data } = await axios.get(process.env.GITHUB_README_URL);
   const tree = markdown.parse(data);
 
   let idx = tree.findIndex((i) => i[2] == "Components & Libraries");
@@ -124,20 +139,20 @@ async function connectGithub() {
   });
   await sleep(DELAY);
   const { data } = await octokit.rateLimit.get();
-  logger.log(
+  console.log(
     `GitHub rate limits: ${data.rate.remaining}/${data.rate.limit}. ` +
       JSON.stringify(data.rate)
   );
 
   if (data.rate.remaining <= 1000) {
-    logger.log("WARN: GitHub remaining API calls is less than 1000. Exiting.");
+    console.log("WARN: GitHub remaining API calls is less than 1000. Exiting.");
     process.exit();
   }
 }
 
 async function getGithubStats(repourl) {
   if (!repourl) {
-    logger.log("getGithubStats: no repourl present");
+    console.log("getGithubStats: no repourl present");
     return;
   }
 
@@ -194,7 +209,7 @@ async function update() {
     await new Promise(async (next) => {
       const i = comps[j];
 
-      logger.log(`┌ Adding: ${i.name}`);
+      console.log(`┌ Adding: ${i.name}`);
 
       await new Promise((next) => {
         setTimeout(() => {
@@ -223,10 +238,10 @@ async function update() {
           githubStats = await getGithubStats(i.url);
           readme = await getReadme(i.url);
         } else {
-          logger.warn(`├ Github.com not found in the url: ${i.url}`);
+          console.warn(`├ Github.com not found in the url: ${i.url}`);
         }
       } catch (e) {
-        logger.warn(`└ Unable to get github stats for ${i.name}. Skipping.`, {
+        console.warn(`└ Unable to get github stats for ${i.name}. Skipping.`, {
           meta: { error: e.toString() },
         });
         return next();
@@ -248,9 +263,9 @@ async function update() {
         { upsert: true, new: true, setDefaultsOnInsert: true },
         function (err, updated) {
           if (!err) {
-            logger.log(`└ Finished adding ${i.name}.`);
+            console.log(`└ Finished adding ${i.name}.`);
           } else {
-            logger.log("└ Unable to ${i.name} save to mongo.");
+            console.log("└ Unable to ${i.name} save to mongo.");
           }
           next();
         }
@@ -262,8 +277,8 @@ async function update() {
 (async () => {
   await connectMongo();
   await connectGithub();
-  logger.log("Starting" + new Date());
+  console.log("Starting" + new Date());
   await update();
-  logger.log("Finished" + new Date());
+  console.log("Finished" + new Date());
   process.exit();
 })();

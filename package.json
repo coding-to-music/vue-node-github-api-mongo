@@ -1,6 +1,7 @@
 {
   "name": "vue-node-github-api-mongo",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "run-front": "vue-cli-service serve",
