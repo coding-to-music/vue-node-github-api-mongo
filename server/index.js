@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "../dist")));
 
 Mongoose.connect(
-  process.env.MONGODB_URL || "mongodb://mongo:27017/vue-node-github-api-mongo"
+  process.env.MONGO_URI || "mongodb://mongo:27017/vue-node-github-api-mongo"
 );
 
 const db = Mongoose.connection;
@@ -59,11 +59,9 @@ db.on("open", () => {
     }
 
     if (skip < 0 || skip > 1000000) {
-      return res
-        .status(403)
-        .json({
-          error: "Skip is too big (how is that even possible lol). Sorry.",
-        });
+      return res.status(403).json({
+        error: "Skip is too big (how is that even possible lol). Sorry.",
+      });
     }
 
     let query = {};

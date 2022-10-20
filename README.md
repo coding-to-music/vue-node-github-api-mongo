@@ -9,10 +9,11 @@ From / By https://github.com/ernestii/vuelibs.org
 ## Environment variables:
 
 ```java
-Mongoose.connect(process.env.MONGODB_URL || 'mongodb://mongo:27017/vue-node-github-api-mongo');
+Mongoose.connect(process.env.MONGO_URI || 'mongodb://mongo:27017/vue-node-github-api-mongo');
 if (process.env.ENV === 'prod' && process.env.LOGDNA_KEY) {
-if (!process.env.OCTOKIT_KEY) {
-
+if (!process.env.OCTOKIT_TOKEN) {
+BASE_URL=
+PORT=
 ```
 
 ## GitHub

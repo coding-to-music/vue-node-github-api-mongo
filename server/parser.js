@@ -18,16 +18,15 @@ if (process.env.ENV === "prod" && process.env.LOGDNA_KEY) {
   });
 }
 
-if (!process.env.OCTOKIT_KEY) {
-  logger.log("OCTOKIT_KEY is not defined.");
+if (!process.env.OCTOKIT_TOKEN) {
+  logger.log("OCTOKIT_TOKEN is not defined.");
   process.exit(1);
 }
 
 async function connectMongo() {
   try {
     await Mongoose.connect(
-      process.env.MONGODB_URL ||
-        "mongodb://mongo:27017/vue-node-github-api-mongo"
+      process.env.MONGO_URI || "mongodb://mongo:27017/vue-node-github-api-mongo"
     );
     logger.log("Connected to mongo");
   } catch (err) {
@@ -105,9 +104,9 @@ function sleep(ms) {
 
 let octokit;
 async function connectGithub() {
-  console.log("Connecting to GitHub with token " + process.env.OCTOKIT_KEY);
+  console.log("Connecting to GitHub with token " + process.env.OCTOKIT_TOKEN);
   octokit = new Octokit({
-    auth: "token " + process.env.OCTOKIT_KEY,
+    auth: "token " + process.env.OCTOKIT_TOKEN,
   });
   await sleep(DELAY);
   const { data } = await octokit.rateLimit.get();
