@@ -120,3 +120,9 @@ Upgrading /mnt/volume_nyc1_01/vue-node-github-api-mongo/package.json
 
 Run npm install to install new versions.
 ```
+
+## Getting build errors
+
+```
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/mnt/volume_nyc1_01/vue-node-github-api-mongo/server/models/component' imported from /mnt/volume_nyc1_01/vue-node-github-api-mongo/server/index.js
+```
