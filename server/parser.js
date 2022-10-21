@@ -291,7 +291,7 @@ async function update() {
   await connectMongo();
   await connectGithub();
   console.log("Starting ");
-  // await update();
+  await update();
   console.log("Finished ");
   process.exit();
 })();
