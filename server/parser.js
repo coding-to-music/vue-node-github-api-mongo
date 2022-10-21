@@ -67,7 +67,15 @@ async function connectMongo() {
 async function parseGithubFile() {
   console.log("parser.js: await axios.get %s", process.env.GITHUB_README_URL);
 
-  const { data } = await axios.get(process.env.GITHUB_README_URL);
+  // const { data } = await axios.get(process.env.GITHUB_README_URL);
+
+  try {
+    const data = await axios.get(process.env.GITHUB_README_URL);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+
   const tree = markdown.parse(data);
 
   let idx = tree.findIndex((i) => i[2] == "Components & Libraries");
