@@ -4,7 +4,7 @@
 // // const { console } = require("logdna");
 // const { Octokit } = require("@octokit/rest");
 // const { mongoose } = require("mongoose");
-require("dotenv").config({ path: __dirname + "/.env" });
+// require("dotenv").config({ path: __dirname + "/.env" });
 
 // require("dotenv").config({ path: __dirname + "/.env" });
 
@@ -13,6 +13,9 @@ require("dotenv").config({ path: __dirname + "/.env" });
 // const envpath = __dirname + "/../.env";
 // console.log("path %s", __dirname);
 // console.log("envpath %s", envpath);
+
+import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config();
 
 import Mongoose from "mongoose";
 import Component from "./models/component.js";
