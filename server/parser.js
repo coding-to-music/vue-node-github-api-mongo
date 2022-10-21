@@ -51,13 +51,12 @@ if (!process.env.OCTOKIT_TOKEN) {
 
 async function connectMongo() {
   try {
-    await Mongoose.connect(
+    // await Mongoose.connect(
+    await mongoose.connect(
       process.env.MONGO_URI || "mongodb://mongo:27017/vue-node-github-api-mongo"
     );
     console.log("parser.js connectMongo: Connected to mongo");
   } catch (err) {
-    const foo = process.env.MONGO_URI;
-    console.error("parser.js connectMongo: Could not connect to mongo %s", foo);
     console.error(
       "parser.js connectMongo: Could not connect to mongo %s",
       process.env.MONGO_URI
