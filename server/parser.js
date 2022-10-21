@@ -1,3 +1,8 @@
+// add timestamps in front of log messages
+require("console-stamp")(console, {
+  format: ":date().blue.underline :label(7)",
+});
+
 const { Component } = require("./models/component");
 const { axios } = require("axios");
 const { markdown } = require("markdown");
@@ -49,12 +54,12 @@ async function connectMongo() {
     await Mongoose.connect(
       process.env.MONGO_URI || "mongodb://mongo:27017/vue-node-github-api-mongo"
     );
-    console.log("Connected to mongo");
+    console.log("parser.js connectMongo: Connected to mongo");
   } catch (err) {
     const foo = process.env.MONGO_URI;
-    console.log("parser.js: Could not connect to mongo %s", foo);
+    console.log("parser.js connectMongo: Could not connect to mongo %s", foo);
     console.log(
-      "parser.js: Could not connect to mongo %s",
+      "parser.js connectMongo: Could not connect to mongo %s",
       process.env.MONGO_URI
     );
   }
@@ -284,10 +289,10 @@ async function update() {
 }
 
 (async () => {
-  await connectMongo();
+  // await connectMongo();
   await connectGithub();
-  console.log("Starting" + new Date());
-  await update();
-  console.log("Finished" + new Date());
+  console.log("Starting ");
+  // await update();
+  console.log("Finished ");
   process.exit();
 })();
