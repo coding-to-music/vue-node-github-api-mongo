@@ -1,13 +1,14 @@
 {
   "name": "vue-node-github-api-mongo",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "scripts": {
     "run-front": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "run-back": "nodemon --exec babel-node --presets env,stage-2 server/index.js",
+    "oldrun-back": "nodemon --exec babel-node --presets env,stage-2 server/index.js",
+    "run-back": "node server/index.js",
+    "parser": "node server/parser.js",
     "deploy": "git add . && git commit -m Build && git push"
   },
   "dependencies": {

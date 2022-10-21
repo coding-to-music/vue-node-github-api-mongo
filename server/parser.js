@@ -1,27 +1,27 @@
-// const { Component } = require("./models/component");
-// const { axios } = require("axios");
-// const { markdown } = require("markdown");
+const { Component } = require("./models/component");
+const { axios } = require("axios");
+const { markdown } = require("markdown");
 // // const { console } = require("logdna");
 // const { Octokit } = require("@octokit/rest");
-// const { mongoose } = require("mongoose");
+const { mongoose } = require("mongoose");
 // require("dotenv").config({ path: __dirname + "/.env" });
 
 // require("dotenv").config({ path: __dirname + "/.env" });
 
-// require("dotenv").config({ path: __dirname + "/../.env" });
+require("dotenv").config({ path: __dirname + "/../.env" });
 
 // const envpath = __dirname + "/../.env";
 // console.log("path %s", __dirname);
 // console.log("envpath %s", envpath);
 
-import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-dotenv.config();
+// import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+// dotenv.config();
 
-import Mongoose from "mongoose";
-import Component from "./models/component.js";
-import axios from "axios";
-import { markdown } from "markdown";
-import Octokit from "@octokit/rest";
+// import Mongoose from "mongoose";
+// import Component from "./models/component.js";
+// import axios from "axios";
+// import { markdown } from "markdown";
+// import Octokit from "@octokit/rest";
 // import console from "logdna";
 
 const DELAY = 2000;
@@ -36,6 +36,8 @@ const DELAY = 2000;
 //     app: "org.vuelib.parser",
 //   });
 // }
+
+console.log("OCTOKIT_TOKEN %s", process.env.OCTOKIT_TOKEN);
 
 if (!process.env.OCTOKIT_TOKEN) {
   console.log("OCTOKIT_TOKEN is not defined.");
@@ -133,9 +135,13 @@ function sleep(ms) {
 //   auth: process.env.OCTOKIT_TOKEN,
 // });
 
-let octokit;
+// let octokit;
+
+const { Octokit } = require("@octokit/rest");
+// import Octokit from "@octokit/rest";
+
 async function connectGithub() {
-  console.log("Connecting to GitHub with token " + process.env.OCTOKIT_TOKEN);
+  // console.log("Connecting to GitHub with token " + process.env.OCTOKIT_TOKEN);
   const octokit = new Octokit({
     auth: process.env.OCTOKIT_TOKEN,
     // auth: "token " + process.env.OCTOKIT_TOKEN,
