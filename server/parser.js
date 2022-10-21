@@ -57,8 +57,8 @@ async function connectMongo() {
     console.log("parser.js connectMongo: Connected to mongo");
   } catch (err) {
     const foo = process.env.MONGO_URI;
-    console.log("parser.js connectMongo: Could not connect to mongo %s", foo);
-    console.log(
+    console.error("parser.js connectMongo: Could not connect to mongo %s", foo);
+    console.error(
       "parser.js connectMongo: Could not connect to mongo %s",
       process.env.MONGO_URI
     );
