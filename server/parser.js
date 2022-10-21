@@ -289,7 +289,7 @@ async function update() {
 }
 
 (async () => {
-  // await connectMongo();
+  await connectMongo();
   await connectGithub();
   console.log("Starting ");
   // await update();
