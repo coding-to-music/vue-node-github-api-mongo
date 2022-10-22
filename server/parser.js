@@ -49,6 +49,17 @@ if (!process.env.OCTOKIT_TOKEN) {
   process.exit(1);
 }
 
+// import axios from "axios";
+
+export default axios.create({
+  baseURL: "https://my-base-url",
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+  },
+});
+
+console.log("parser.js axios.create:");
+
 async function connectMongo() {
   try {
     // await Mongoose.connect(
