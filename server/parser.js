@@ -70,10 +70,13 @@ async function parseGithubFile() {
   // const { data } = await axios.get(process.env.GITHUB_README_URL);
 
   try {
-    const data = await axios.get(process.env.GITHUB_README_URL);
-    console.log(data);
+    const { data } = await axios.get(process.env.GITHUB_README_URL);
+    // const data = await axios.get(process.env.GITHUB_README_URL);
+    console.log("data ", data);
   } catch (error) {
     console.error(error);
+    console.error("exiting...");
+    process.exit(22);
   }
 
   const tree = markdown.parse(data);
