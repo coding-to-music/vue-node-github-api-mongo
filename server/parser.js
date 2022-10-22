@@ -51,14 +51,14 @@ if (!process.env.OCTOKIT_TOKEN) {
 
 // import axios from "axios";
 
-export default axios.create({
-  baseURL: "https://my-base-url",
-  headers: {
-    "Content-Type": "application/json;charset=utf-8",
-  },
-});
+// export default axios.create({
+//   baseURL: "https://my-base-url",
+//   headers: {
+//     "Content-Type": "application/json;charset=utf-8",
+//   },
+// });
 
-console.log("parser.js axios.create:");
+// console.log("parser.js axios.create:");
 
 async function connectMongo() {
   try {
